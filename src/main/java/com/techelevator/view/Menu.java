@@ -11,7 +11,7 @@ import java.util.Scanner;
  * should include no "work" that is the job of the candy store.
  */
 public class Menu {
-	
+
 	private static final Scanner in = new Scanner(System.in);
 
 	public void showWelcomeMessage() {
@@ -22,16 +22,15 @@ public class Menu {
 		System.out.println();
 	}
 
-	public void showMainMenu(){
+	public void showMainMenu() {
 		System.out.println("(1) Show Inventory");
 		System.out.println("(2) Make Sale");
 		System.out.println("(3) Quit");
 	}
 
-	public String getMainMenuSelectionFromUser(){
+	public String getMenuSelection() {
 		System.out.println("Select your option: ");
 		String mainMenuSelectionByUser = in.nextLine();
-		return mainMenuSelectionByUser;
+		return  mainMenuSelectionByUser;
 	}
-
 }

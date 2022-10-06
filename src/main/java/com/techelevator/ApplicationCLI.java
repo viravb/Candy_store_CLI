@@ -43,24 +43,12 @@ public class ApplicationCLI {
 			System.out.println("FIX ME");
 		}
 
-		Map<String, CandyStoreItem> inventory = candyStore.getInventory();
-
 		menu.showWelcomeMessage();
-
 
 		while (true) {
 			menu.showMainMenu();
+			menuSelectionProcess();
 
-			String mainMenuSelection = menu.getMainMenuSelectionFromUser();
-			if(mainMenuSelection.equals("1")){
-				//showInventorymethod();
-			}else if(mainMenuSelection.equals("2")){
-				//makePurchasemethod();
-			} else if (mainMenuSelection.equals("3")){
-				break;
-			} else{
-				System.out.println("Please enter a valid selection");
-			}
 
 			/*
 
@@ -78,6 +66,20 @@ public class ApplicationCLI {
 		}
 	}
 
+	private void menuSelectionProcess(){
+		String selection = menu.getMenuSelection();
+
+		if(selection.equals("1")){
+			//showInventorymethod();
+		}else if(selection.equals("2")){
+			//makePurchasemethod();
+		} else if (selection.equals("3")){
+		} else{
+			System.out.println("Please enter a valid selection");
+		}
+
+	}
+
 	/*
 	 * This starts the application, but you shouldn't need to change it.  
 	 */
@@ -86,4 +88,5 @@ public class ApplicationCLI {
 		ApplicationCLI cli = new ApplicationCLI(menu);
 		cli.run();
 	}
+
 }

@@ -13,15 +13,20 @@ import java.util.TreeMap;
  */
 public class CandyStore {
 
-    InventoryFileReader inventoryFileReader = new InventoryFileReader();
+    Inventory inventory = new Inventory();
 
-    private  Map<String, CandyStoreItem> inventory = new TreeMap<String, CandyStoreItem>();
+    private  Map<String, CandyStoreItem> inventoryMap = new TreeMap<String, CandyStoreItem>();
 
     public void initialPopulateInventory() throws FileNotFoundException {
-        inventoryFileReader.populateInventory(inventory);
+        inventory.populateInventory(inventoryMap);
+        inventory.populateQuantities();
     }
 
     public Map<String, CandyStoreItem> getInventory() {
-        return inventory;
+        return inventoryMap;
+    }
+
+    public Map<String, CandyStoreItem> getInventoryMap() {
+        return inventoryMap;
     }
 }

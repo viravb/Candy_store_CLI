@@ -12,7 +12,6 @@ public abstract class CandyStoreItem {
     private String sku ;
     private String name;
     private boolean hasWrapper;
-    private int quantity = 100;
     private double price;
 
     public CandyStoreItem(String sku, String name, boolean hasWrapper, double price){
@@ -34,9 +33,6 @@ public abstract class CandyStoreItem {
         return hasWrapper;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
 
     public double getPrice() {
         return price;
