@@ -35,7 +35,22 @@ public class ApplicationCLI {
 
 
 		while (true) {
+			menu.showMainMenu();
+
+			String mainMenuSelection = menu.getMainMenuSelectionFromUser();
+			if(mainMenuSelection.equals("1")){
+				//showInventorymethod();
+			}else if(mainMenuSelection.equals("2")){
+				//makePurchasemethod();
+			} else if (mainMenuSelection.equals("3")){
+				break;
+			} else{
+				System.out.println("Please enter a valid selection");
+			}
+
 			/*
+
+
 			Display the Starting Menu and get the users choice.
 			Remember all uses of System.out and System.in should be in the menu
 			
