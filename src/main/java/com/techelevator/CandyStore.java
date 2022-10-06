@@ -1,9 +1,9 @@
 package com.techelevator;
 
-import com.techelevator.filereader.InventoryFileReader;
 import com.techelevator.items.CandyStoreItem;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -14,19 +14,18 @@ import java.util.TreeMap;
 public class CandyStore {
 
     Inventory inventory = new Inventory();
-
-    private  Map<String, CandyStoreItem> inventoryMap = new TreeMap<String, CandyStoreItem>();
+    private Map<String,Integer> inventoryWithQuantity;
+    private Map<String, CandyStoreItem> inventoryWithProperties;
 
     public void initialPopulateInventory() throws FileNotFoundException {
-        inventory.populateInventory(inventoryMap);
-        inventory.populateQuantities();
+        this.inventoryWithProperties = inventory.populateInventory();
+        this.inventoryWithQuantity = inventory.populateQuantities();
     }
 
-    public Map<String, CandyStoreItem> getInventory() {
-        return inventoryMap;
+    public Map<String, Integer> getInventoryWithQuantity() {
+        return inventoryWithQuantity;
     }
-
-    public Map<String, CandyStoreItem> getInventoryMap() {
-        return inventoryMap;
+    public Map<String, CandyStoreItem> getInventoryWithProperties() {
+        return inventoryWithProperties;
     }
 }

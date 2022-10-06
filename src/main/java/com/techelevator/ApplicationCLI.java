@@ -1,11 +1,8 @@
 package com.techelevator;
 
-import com.techelevator.filereader.InventoryFileReader;
-import com.techelevator.items.CandyStoreItem;
 import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
-import java.util.Map;
 
 /*
  * This class should control the workflow of the application, but not do any other work
@@ -17,6 +14,8 @@ import java.util.Map;
  * the CandyStore class to do any work and pass the results between those 2 classes.
  */
 public class ApplicationCLI {
+	CandyStore candyStore = new CandyStore();
+
 
 	/*
 	 * The menu class is instantiated in the main() method at the bottom of this file.  
@@ -25,8 +24,8 @@ public class ApplicationCLI {
 	 * 
 	 * Remember every class and data structure is a data types and can be passed as arguments to methods or constructors.
 	 */
-	private Menu menu;
 
+	private Menu menu;
 	public ApplicationCLI(Menu menu) {
 		this.menu = menu;
 	}
@@ -34,21 +33,11 @@ public class ApplicationCLI {
 	/*
 	 * Your application starts here
 	 */
-	public void run() {
-		CandyStore candyStore = new CandyStore();
+	public void run() throws FileNotFoundException {
 
-		try {
-			candyStore.initialPopulateInventory();
-		} catch (FileNotFoundException e){
-			System.out.println("FIX ME");
-		}
-
+		candyStore.initialPopulateInventory();
 		menu.showWelcomeMessage();
-
-		while (true) {
-			menu.showMainMenu();
-			menuSelectionProcess();
-
+		menuSelectionProcess();
 
 			/*
 
@@ -63,19 +52,22 @@ public class ApplicationCLI {
 			ELSE IF the User's Choice is Quit
 				THEN break the loop so the application stops
 			*/
-		}
+
 	}
 
 	private void menuSelectionProcess(){
-		String selection = menu.getMenuSelection();
+		while(true){
+			menu.showMainMenu();
+			String selection = menu.getMenuSelection();
+			if(selection.equals("1")){
+				menu.displayInventoryToUser(candyStore.getInventoryWithProperties(), candyStore.getInventoryWithQuantity());
+			}else if(selection.equals("2")){
 
-		if(selection.equals("1")){
-			//showInventorymethod();
-		}else if(selection.equals("2")){
-			//makePurchasemethod();
-		} else if (selection.equals("3")){
-		} else{
-			System.out.println("Please enter a valid selection");
+			} else if (selection.equals("3")){
+				break;
+			} else{
+				menu.displayInvalidSelection();
+			}
 		}
 
 	}
@@ -83,7 +75,7 @@ public class ApplicationCLI {
 	/*
 	 * This starts the application, but you shouldn't need to change it.  
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		Menu menu = new Menu();
 		ApplicationCLI cli = new ApplicationCLI(menu);
 		cli.run();

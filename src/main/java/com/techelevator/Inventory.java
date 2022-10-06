@@ -14,12 +14,16 @@ public class Inventory {
 
     InventoryFileReader inventoryFileReader = new InventoryFileReader();
     private String inventoryFileName = inventoryFileReader.getInventoryFileName();
-    private Map<String,Integer> inventoryWithQuantity = new HashMap<String,Integer>();
+
+    private  Map<String, CandyStoreItem> inventoryProperties = new TreeMap<>();
+    private Map<String,Integer> inventoryWithQuantity = new HashMap<>();
+
+
 
     CandyStore candyStore = new CandyStore();
 
 
-    public void populateInventory (Map<String, CandyStoreItem> inventory) throws FileNotFoundException {
+    public Map<String, CandyStoreItem> populateInventory () throws FileNotFoundException {
 
         File inventoryFile = new File(inventoryFileName);
 
@@ -28,11 +32,11 @@ public class Inventory {
                 String lineFromFile = fileReader.nextLine();
                 String[] parts = lineFromFile.split("\\|");
                 CandyStoreItem candyFromLine = buildInventoryFromParts(parts);
-                inventory.put(parts[1], candyFromLine);
-
+                inventoryProperties.put(parts[1], candyFromLine);
             }
-
         }
+
+        return inventoryProperties;
 
     }
 
@@ -64,14 +68,12 @@ public class Inventory {
         return candyFromLine;
     }
 
-    public void populateQuantities (){
-        for(String item: candyStore.getInventoryMap().keySet()){
-
+    public Map<String,Integer> populateQuantities (){
+        for(String item: inventoryProperties.keySet()){
             inventoryWithQuantity.put(item,100);
-
         }
-
-
+        return inventoryWithQuantity;
     }
+
 
 }

@@ -1,5 +1,8 @@
 package com.techelevator.view;
 
+import com.techelevator.items.CandyStoreItem;
+
+import java.util.Map;
 import java.util.Scanner;
 
 /*
@@ -33,4 +36,17 @@ public class Menu {
 		String mainMenuSelectionByUser = in.nextLine();
 		return  mainMenuSelectionByUser;
 	}
+
+	public void displayInvalidSelection(){
+		System.out.println("Please enter a valid selection");
+	}
+
+	public void displayInventoryToUser(Map<String, CandyStoreItem> inventoryMap,
+									   Map<String, Integer> inventoryWithQuantity){
+		System.out.println("Id      Name                Wrapper  Qty      Price");
+		for ( CandyStoreItem candy : inventoryMap.values()) {
+			System.out.println( candy.getSku() + candy.getName() + candy.isHasWrapper() + inventoryWithQuantity.get(candy.getSku()) + "$" + candy.getPrice() );
+		}
+
+		}
 }
