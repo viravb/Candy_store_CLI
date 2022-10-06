@@ -1,6 +1,11 @@
 package com.techelevator;
 
+import com.techelevator.filereader.InventoryFileReader;
+import com.techelevator.items.CandyStoreItem;
 import com.techelevator.view.Menu;
+
+import java.io.FileNotFoundException;
+import java.util.Map;
 
 /*
  * This class should control the workflow of the application, but not do any other work
@@ -30,6 +35,15 @@ public class ApplicationCLI {
 	 * Your application starts here
 	 */
 	public void run() {
+		CandyStore candyStore = new CandyStore();
+
+		try {
+			candyStore.initialPopulateInventory();
+		} catch (FileNotFoundException e){
+			System.out.println("FIX ME");
+		}
+
+		Map<String, CandyStoreItem> inventory = candyStore.getInventory();
 
 		menu.showWelcomeMessage();
 
