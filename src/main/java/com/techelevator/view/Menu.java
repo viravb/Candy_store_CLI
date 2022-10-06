@@ -45,7 +45,7 @@ public class Menu {
 									   Map<String, Integer> inventoryWithQuantity){
 		System.out.println("Id      Name                Wrapper  Qty      Price");
 		for ( CandyStoreItem candy : inventoryMap.values()) {
-			System.out.println( candy.getSku() + candy.getName() + candy.isHasWrapper() + inventoryWithQuantity.get(candy.getSku()) + "$" + candy.getPrice() );
+			System.out.printf("%-8s%-20s%-9s%-9d$%-4.2f \n", candy.getSku() , candy.getName() , candy.isHasWrapper() , inventoryWithQuantity.get(candy.getSku()), candy.getPrice() );
 		}
 
 		}

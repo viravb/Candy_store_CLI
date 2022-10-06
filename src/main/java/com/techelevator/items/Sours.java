@@ -2,7 +2,7 @@ package com.techelevator.items;
 
 public class Sours extends CandyStoreItem{
 
-    public Sours(String sku, String name, boolean hasWrapper, double price){
+    public Sours(String sku, String name, String hasWrapper, double price){
         super(sku, name,hasWrapper, price);
     }
 

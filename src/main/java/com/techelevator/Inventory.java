@@ -20,9 +20,6 @@ public class Inventory {
 
 
 
-    CandyStore candyStore = new CandyStore();
-
-
     public Map<String, CandyStoreItem> populateInventory () throws FileNotFoundException {
 
         File inventoryFile = new File(inventoryFileName);
@@ -35,13 +32,11 @@ public class Inventory {
                 inventoryProperties.put(parts[1], candyFromLine);
             }
         }
-
         return inventoryProperties;
-
     }
 
 
-    private CandyStoreItem buildInventoryFromParts(String[] parts) {
+    public CandyStoreItem buildInventoryFromParts(String[] parts) {
         CandyStoreItem candyFromLine = null;
 
         String category = parts[0];
@@ -49,19 +44,20 @@ public class Inventory {
         String name = parts[2];
         double price = Double.parseDouble(parts[3]);
         String hasWrapperString = parts[4];
-        boolean hasWrapper = false;
+        String hasWrapper ="N";
+
 
         if (hasWrapperString.equals("T")) {
-            hasWrapper = true;
+            hasWrapper = "Y";
         }
 
-        if (category == "CH") {
+        if (category.equals("CH")) {
             candyFromLine = new Chocolate(sku, name, hasWrapper, price);
-        } else if (category == "SR"){
+        } else if (category.equals("SR")){
             candyFromLine = new Sours(sku, name, hasWrapper, price);
-        } else if(category == "HC") {
+        } else if(category.equals("HC")){
             candyFromLine = new HardCandy(sku, name, hasWrapper, price);
-        } else if(category == "LI") {
+        } else if(category.equals("LI")) {
             candyFromLine = new Licorice(sku, name, hasWrapper, price);
         }
 
@@ -74,6 +70,5 @@ public class Inventory {
         }
         return inventoryWithQuantity;
     }
-
 
 }
