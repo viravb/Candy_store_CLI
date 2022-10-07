@@ -99,6 +99,9 @@ public class ApplicationCLI {
 			} else if (menuSelection.equals("2")) {
 				subMenuSelectionProcessSelection2();
 			} else if (menuSelection.equals("3")) {
+				candyStore.makeChange();
+				menu.displayReceipt(candyStore.getCart(), candyStore.getInventoryWithProperties(),
+						candyStore.getTotalCost(), candyStore.getBalance(), candyStore.getChangeObject());
 				break;
 			} else {
 				menu.displayInvalidSelection();

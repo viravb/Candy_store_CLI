@@ -11,4 +11,7 @@ public class Cart {
         currentCart.put(sku, quantity);
     }
 
+    public Map<String, Integer> getCurrentCart() {
+        return currentCart;
+    }
 }

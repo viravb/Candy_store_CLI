@@ -17,6 +17,10 @@ public class CandyStore {
     Inventory inventory = new Inventory();
     private Map<String,Integer> inventoryWithQuantity;
     private Map<String, CandyStoreItem> inventoryWithProperties;
+    Cart cart = new Cart();
+    Receipt receipt = new Receipt(cart.getCurrentCart());
+    Change change = new Change();
+
 
     public void initialPopulateInventory() throws FileNotFoundException {
         this.inventoryWithProperties = inventory.populateInventory();
@@ -47,6 +51,7 @@ public class CandyStore {
                 if(purchaseAmount <= account.getBalance()){
                     removeFromInventory(sku, quantityToBePurchased);
                     account.withdraw(purchaseAmount);
+                    cart.addToCart(sku,quantityToBePurchased);
                 } else {
                     throw new InvalidNumberException("Not enough funds to complete purchase");
                 }
@@ -65,5 +70,26 @@ public class CandyStore {
 
         inventoryWithQuantity.put(sku,newQuantity);
 
+    }
+
+    public double getTotalCost(){
+        return receipt.getTotalCost(inventoryWithProperties);
+    }
+
+
+    public Change getChangeObject(){
+        return change;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public double getBalance(){
+        return account.getBalance();
+    }
+
+    public void makeChange(){
+        change.determineChange(account.getBalance());
     }
 }

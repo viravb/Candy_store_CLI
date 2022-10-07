@@ -1,5 +1,7 @@
 package com.techelevator.view;
 
+import com.techelevator.Cart;
+import com.techelevator.Change;
 import com.techelevator.items.CandyStoreItem;
 
 import java.util.Map;
@@ -102,6 +104,23 @@ public class Menu {
 
 	public void showNumberFormatException(){
 		System.out.println("Please enter a valid number");
+	}
+
+	public void displayReceipt(Cart finalCart, Map<String,CandyStoreItem> inventoryWProperties, double totalCost, double totalChange, Change change){
+		for(String sku: finalCart.getCurrentCart().keySet()){
+			double lineItemTotal = (inventoryWProperties.get(sku).getPrice() * finalCart.getCurrentCart().get(sku));
+			System.out.println(finalCart.getCurrentCart().get(sku) + inventoryWProperties.get(sku).getName() + inventoryWProperties.get(sku).getPrice() + lineItemTotal);
+		}
+		System.out.println("Total: $"+ totalCost+ "\n");
+		System.out.println("Change: $" + totalChange);
+		System.out.print("("+ change.getTwenties()+ ")" + "Twenties, ");
+		System.out.print("("+ change.getTens()+ ")" + "Tens, ");
+		System.out.print("("+ change.getFives()+ ")" + "Fives, ");
+		System.out.print("("+ change.getOnes()+ ")" + "Ones, ");
+		System.out.print("("+ change.getQuarters()+ ")" + "Quarters, ");
+		System.out.print("("+ change.getDimes()+ ")" + "Dimes, ");
+		System.out.print("("+ change.getNickels()+ ")" + "nickels");
+
 	}
 
 }
