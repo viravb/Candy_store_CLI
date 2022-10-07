@@ -68,4 +68,16 @@ public class Menu {
 		System.out.println("Current Customer Balance: $"+ balance);
 	}
 
+	public void displayDesiredAmountToDeposit(){
+		System.out.println("How much do you want to despot?: ");
+	}
+
+	public double getAmountToDeposit(){
+		double amountToDeposit = 0.00;
+		String amountFromCustomer = in.nextLine();
+		amountToDeposit = Double.parseDouble(amountFromCustomer);
+		return amountToDeposit;
+	}
+
+
 }

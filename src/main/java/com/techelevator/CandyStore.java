@@ -33,4 +33,8 @@ public class CandyStore {
     public Map<String, CandyStoreItem> getInventoryWithProperties() {
         return inventoryWithProperties;
     }
+
+    public void takeMoney(double amount){
+        account.deposit(amount);
+    }
 }
