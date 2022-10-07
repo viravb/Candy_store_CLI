@@ -37,4 +37,28 @@ public class CandyStore {
     public void takeMoney(double amount){
         account.deposit(amount);
     }
+
+    public void selectProductsProcess(String sku, int quantityToBePurchased){
+        if(inventoryWithProperties.containsKey(sku)) {
+
+            int currentlyInStock = inventoryWithQuantity.get(sku);
+            double purchaseAmount = inventoryWithProperties.get(sku).getPrice() * quantityToBePurchased;
+
+            if (currentlyInStock >= quantityToBePurchased) {
+                removeFromInventory(sku, quantityToBePurchased);
+                account.withdraw(purchaseAmount);
+            }
+        } else{
+            System.out.println("FIXME");
+        }
+
+    }
+
+    private void removeFromInventory(String sku, int amountToRemove){
+        int currentlyInStock = inventoryWithQuantity.get(sku);
+        int newQuantity = currentlyInStock - amountToRemove;
+
+        inventoryWithQuantity.put(sku,newQuantity);
+
+    }
 }

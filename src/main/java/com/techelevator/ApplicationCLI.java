@@ -84,15 +84,23 @@ public class ApplicationCLI {
 	private void subMenuSelectionProcess() {
 		while (true) {
 			menu.displaySubMenu(candyStore.accountBalance());
-			String selection = menu.getMenuSelection();
-			if (selection.equals("1")) {
+			String menuSelection = menu.getMenuSelection();
+			String skuSelection = "";
+			int quantitySeleciton = 0;
+			if (menuSelection.equals("1")) {
 				menu.displayDesiredAmountToDeposit();
 				double depositAmount = menu.getAmountToDeposit();
 				candyStore.takeMoney(depositAmount);
-			} else if (selection.equals("2")) {
+			} else if (menuSelection.equals("2")) {
+				menu.displayInventoryToUser(candyStore.getInventoryWithProperties(),candyStore.getInventoryWithQuantity());
+				menu.displaySkuSelection();
+				skuSelection = menu.getPurchaseSkuSelection();
+				menu.displayQuantitySelection();
+				quantitySeleciton = menu.getPurchaseQuantitySelection();
+				candyStore.selectProductsProcess(skuSelection,quantitySeleciton);
 
-			} else if (selection.equals("3")) {
-
+			} else if (menuSelection.equals("3")) {
+				break;
 			} else {
 				menu.displayInvalidSelection();
 			}
