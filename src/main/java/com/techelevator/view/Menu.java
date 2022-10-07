@@ -1,9 +1,7 @@
 package com.techelevator.view;
 
-import com.techelevator.InvalidNumberException;
 import com.techelevator.items.CandyStoreItem;
 
-import javax.print.DocFlavor;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -86,28 +84,24 @@ public class Menu {
 	}
 
 	public String getPurchaseSkuSelection(){
-		String selection = in.nextLine();
-
-		return selection;
+		String selection =  in.nextLine();
+		return selection.toUpperCase();
 	}
+
+
 
 	public void displayQuantitySelection(){
 		System.out.println("Please enter the quantity of desired candy you would like to purchase: ");
 	}
 
-	public int getPurchaseQuantitySelection() {
-		String selection = in.nextLine();
-		int quantity = 0;
-		try {
-			quantity = Integer.parseInt(selection);
-			if(quantity<=0){
-				throw new InvalidNumberException();
-			}
-		} catch (NumberFormatException e) {
-			System.out.println("Please enter a number");
-		} catch (InvalidNumberException e){
-			System.out.println("Please enter a quantity greater than 0");
-		}
-		return quantity;
+
+
+	public void showExceptionMessage(Exception e){
+		System.out.println(e.getMessage());
 	}
+
+	public void showNumberFormatException(){
+		System.out.println("Please enter a valid number");
+	}
+
 }

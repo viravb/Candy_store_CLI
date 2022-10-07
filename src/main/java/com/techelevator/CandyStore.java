@@ -1,11 +1,11 @@
 package com.techelevator;
 
+import com.techelevator.exceptions.InvalidNumberException;
+import com.techelevator.exceptions.InvalidSkuSelectedException;
 import com.techelevator.items.CandyStoreItem;
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 /*
     This class should encapsulate all the functionality of the Candy Store application, meaning it should
@@ -34,22 +34,27 @@ public class CandyStore {
         return inventoryWithProperties;
     }
 
-    public void takeMoney(double amount){
+    public void takeMoney(double amount) throws InvalidNumberException {
         account.deposit(amount);
     }
 
-    public void selectProductsProcess(String sku, int quantityToBePurchased){
+    public void selectProductsProcess(String sku, int quantityToBePurchased) throws InvalidNumberException, InvalidSkuSelectedException {
         if(inventoryWithProperties.containsKey(sku)) {
-
             int currentlyInStock = inventoryWithQuantity.get(sku);
             double purchaseAmount = inventoryWithProperties.get(sku).getPrice() * quantityToBePurchased;
 
             if (currentlyInStock >= quantityToBePurchased) {
-                removeFromInventory(sku, quantityToBePurchased);
-                account.withdraw(purchaseAmount);
+                if(purchaseAmount <= account.getBalance()){
+                    removeFromInventory(sku, quantityToBePurchased);
+                    account.withdraw(purchaseAmount);
+                } else {
+                    throw new InvalidNumberException("Not enough funds to complete purchase");
+                }
+            } else{
+                throw new InvalidNumberException("Not enough quantity in stock for your selection");
             }
         } else{
-            System.out.println("FIXME");
+            throw new InvalidSkuSelectedException("Please Enter In a Valid Sku");
         }
 
     }

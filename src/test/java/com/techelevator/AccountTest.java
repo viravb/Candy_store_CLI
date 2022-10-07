@@ -1,5 +1,6 @@
 package com.techelevator;
 
+import com.techelevator.exceptions.InvalidNumberException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,21 +15,21 @@ public class AccountTest {
     }
 
     @Test
-    public void deposit_100_test(){
+    public void deposit_100_test() throws InvalidNumberException {
         double expected = 100;
         target.deposit(100);
         Assert.assertEquals(expected, target.getBalance(),.009);
     }
 
     @Test
-    public void deposit_101_test(){
+    public void deposit_101_test() throws InvalidNumberException {
         double expected = 0;
         target.deposit(101);
         Assert.assertEquals(expected, target.getBalance(),.009);
     }
 
     @Test
-    public void deposit_zero_test(){
+    public void deposit_zero_test() throws InvalidNumberException {
         double expected = 0;
         target.deposit(0);
         Assert.assertEquals(expected, target.getBalance(),.009);
