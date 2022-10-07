@@ -8,9 +8,7 @@ public class Cart {
     private Map<String,Integer> currentCart = new HashMap<>();
 
     public void addToCart(String sku, int quantity){
-
         currentCart.put(sku, quantity);
     }
-
 
 }
