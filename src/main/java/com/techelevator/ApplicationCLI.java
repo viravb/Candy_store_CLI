@@ -5,6 +5,7 @@ import com.techelevator.exceptions.InvalidSkuSelectedException;
 import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /*
  * This class should control the workflow of the application, but not do any other work
@@ -16,8 +17,6 @@ import java.io.FileNotFoundException;
  * the CandyStore class to do any work and pass the results between those 2 classes.
  */
 public class ApplicationCLI {
-	CandyStore candyStore = new CandyStore();
-
 
 	/*
 	 * The menu class is instantiated in the main() method at the bottom of this file.  
@@ -28,14 +27,16 @@ public class ApplicationCLI {
 	 */
 
 	private Menu menu;
-	public ApplicationCLI(Menu menu) {
+	CandyStore candyStore = new CandyStore();
+
+	public ApplicationCLI(Menu menu) throws IOException {
 		this.menu = menu;
 	}
 
 	/*
 	 * Your application starts here
 	 */
-	public void run() throws FileNotFoundException {
+	public void run() throws IOException {
 
 		candyStore.initialPopulateInventory();
 		menu.showWelcomeMessage();
@@ -57,7 +58,7 @@ public class ApplicationCLI {
 
 	}
 
-	private void menuSelectionProcess(){
+	private void menuSelectionProcess() throws IOException {
 		while(true){
 			menu.showMainMenu();
 			String selection = menu.getMenuSelection();
@@ -77,13 +78,13 @@ public class ApplicationCLI {
 	/*
 	 * This starts the application, but you shouldn't need to change it.  
 	 */
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws IOException {
 		Menu menu = new Menu();
 		ApplicationCLI cli = new ApplicationCLI(menu);
 		cli.run();
 	}
 
-	private void subMenuSelectionProcess() {
+	private void subMenuSelectionProcess() throws IOException {
 		while (true) {
 			menu.displaySubMenu(candyStore.accountBalance());
 			String menuSelection = menu.getMenuSelection();
@@ -95,6 +96,8 @@ public class ApplicationCLI {
 					candyStore.takeMoney(depositAmount);
 				} catch (InvalidNumberException e){
 					menu.showExceptionMessage(e);
+				} catch (IOException e){
+					menu.showExceptionMessage(e);
 				}
 			} else if (menuSelection.equals("2")) {
 				subMenuSelectionProcessSelection2();
@@ -102,6 +105,7 @@ public class ApplicationCLI {
 				candyStore.makeChange();
 				menu.displayReceipt(candyStore.getCart(), candyStore.getInventoryWithProperties(),
 						candyStore.getTotalCost(), candyStore.getBalance(), candyStore.getChangeObject());
+				candyStore.reset();
 				break;
 			} else {
 				menu.displayInvalidSelection();
@@ -109,7 +113,7 @@ public class ApplicationCLI {
 		}
 	}
 
-	private void subMenuSelectionProcessSelection2(){
+	private void subMenuSelectionProcessSelection2 () throws IOException{
 		String skuSelection = "";
 		int quantitySelection = 0;
 

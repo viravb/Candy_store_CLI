@@ -8,6 +8,8 @@ import java.util.Map;
 public class Receipt {
     Map<String,Integer> finalCart = new HashMap<>();
     private double totalCost = 0.0;
+    public Receipt(){
+    }
 
     public Receipt(Map<String,Integer> finalCart) {
         this.finalCart = finalCart;
