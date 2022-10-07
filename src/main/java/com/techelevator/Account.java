@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import com.techelevator.exceptions.InvalidNumberException;
+
 public class Account {
 
     private double balance = 0.00;
@@ -13,22 +15,23 @@ public class Account {
 //        this.balance = balance;
 //    }
 
-    public void deposit(double amount){
+    public void deposit(double amount) throws InvalidNumberException {
         if(amount<=100 && (balance+amount)<=1000 && amount > 0){
             this.balance += amount;
         } else{
-            System.out.println("FixMEE - Amount entered is greater than the max balance or over 100");
+            throw new InvalidNumberException("Amount entered is greater than the max balance or over 100");
         }
 
     }
 
-    public void withdraw(double amount){
+    public void withdraw(double amount) throws InvalidNumberException {
+
+
         if(balance - amount>0) {
             balance -= amount;
         } else{
-            System.out.println("FIXXX ME - Amount to withdraw is more then what is in the account");
+           throw new InvalidNumberException ("Amount to withdraw is more then what is in the account");
         }
-
     }
 
 

@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import com.techelevator.exceptions.InvalidNumberException;
+import com.techelevator.exceptions.InvalidSkuSelectedException;
 import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
@@ -85,26 +87,60 @@ public class ApplicationCLI {
 		while (true) {
 			menu.displaySubMenu(candyStore.accountBalance());
 			String menuSelection = menu.getMenuSelection();
-			String skuSelection = "";
-			int quantitySeleciton = 0;
-			if (menuSelection.equals("1")) {
-				menu.displayDesiredAmountToDeposit();
-				double depositAmount = menu.getAmountToDeposit();
-				candyStore.takeMoney(depositAmount);
-			} else if (menuSelection.equals("2")) {
-				menu.displayInventoryToUser(candyStore.getInventoryWithProperties(),candyStore.getInventoryWithQuantity());
-				menu.displaySkuSelection();
-				skuSelection = menu.getPurchaseSkuSelection();
-				menu.displayQuantitySelection();
-				quantitySeleciton = menu.getPurchaseQuantitySelection();
-				candyStore.selectProductsProcess(skuSelection,quantitySeleciton);
 
+			if (menuSelection.equals("1")) {
+				try {
+					menu.displayDesiredAmountToDeposit();
+					double depositAmount = menu.getAmountToDeposit();
+					candyStore.takeMoney(depositAmount);
+				} catch (InvalidNumberException e){
+					menu.showExceptionMessage(e);
+				}
+			} else if (menuSelection.equals("2")) {
+				subMenuSelectionProcessSelection2();
 			} else if (menuSelection.equals("3")) {
 				break;
 			} else {
 				menu.displayInvalidSelection();
 			}
 		}
+	}
+
+	private void subMenuSelectionProcessSelection2(){
+		String skuSelection = "";
+		int quantitySelection = 0;
+
+		menu.displayInventoryToUser(candyStore.getInventoryWithProperties(),candyStore.getInventoryWithQuantity());
+		menu.displaySkuSelection();
+		skuSelection = menu.getPurchaseSkuSelection();
+		menu.displayQuantitySelection();
+
+
+		quantitySelection = getPurchaseQuantitySelection(menu.getPurchaseSkuSelection());
+
+		try {
+			candyStore.selectProductsProcess(skuSelection, quantitySelection);
+		} catch ( InvalidNumberException e){
+			menu.showExceptionMessage(e);
+		} catch ( InvalidSkuSelectedException e){
+			menu.showExceptionMessage(e);
+		}
+	}
+
+
+	private int getPurchaseQuantitySelection(String selection) {
+		int quantity = 0;
+		try {
+			quantity = Integer.parseInt(selection);
+			if(quantity<=0){
+				throw new InvalidNumberException("Please enter a quantity greater than 0");
+			}
+		} catch (NumberFormatException e) {
+			menu.showNumberFormatException();
+		} catch (InvalidNumberException e){
+			menu.showExceptionMessage(e);
+		}
+		return quantity;
 	}
 
 }
