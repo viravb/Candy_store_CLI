@@ -13,6 +13,7 @@ import java.util.TreeMap;
  */
 public class CandyStore {
 
+    Account account = new Account();
     Inventory inventory = new Inventory();
     private Map<String,Integer> inventoryWithQuantity;
     private Map<String, CandyStoreItem> inventoryWithProperties;
@@ -20,6 +21,10 @@ public class CandyStore {
     public void initialPopulateInventory() throws FileNotFoundException {
         this.inventoryWithProperties = inventory.populateInventory();
         this.inventoryWithQuantity = inventory.populateQuantities();
+    }
+
+    public double accountBalance(){
+        return account.getBalance();
     }
 
     public Map<String, Integer> getInventoryWithQuantity() {

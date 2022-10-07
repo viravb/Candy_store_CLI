@@ -62,7 +62,7 @@ public class ApplicationCLI {
 			if(selection.equals("1")){
 				menu.displayInventoryToUser(candyStore.getInventoryWithProperties(), candyStore.getInventoryWithQuantity());
 			}else if(selection.equals("2")){
-
+					subMenuSelectionProcess();
 			} else if (selection.equals("3")){
 				break;
 			} else{
@@ -79,6 +79,11 @@ public class ApplicationCLI {
 		Menu menu = new Menu();
 		ApplicationCLI cli = new ApplicationCLI(menu);
 		cli.run();
+	}
+
+	private void subMenuSelectionProcess(){
+		menu.displaySubMenu(candyStore.accountBalance());
+		String selection = menu.getMenuSelection();
 	}
 
 }

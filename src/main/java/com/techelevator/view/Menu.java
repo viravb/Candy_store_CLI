@@ -45,8 +45,27 @@ public class Menu {
 									   Map<String, Integer> inventoryWithQuantity){
 		System.out.println("Id      Name                Wrapper  Qty      Price");
 		for ( CandyStoreItem candy : inventoryMap.values()) {
-			System.out.printf("%-8s%-20s%-9s%-9d$%-4.2f \n", candy.getSku() , candy.getName() , candy.isHasWrapper() , inventoryWithQuantity.get(candy.getSku()), candy.getPrice() );
+			System.out.printf("%-8s%-20s%-9s%-9s$%-4.2f \n",
+					candy.getSku() , candy.getName() , candy.isHasWrapper(),
+					displayQuantity(inventoryWithQuantity.get(candy.getSku())) , candy.getPrice() );
 		}
 
+	}
+
+	private String displayQuantity(Integer num){
+		if(num>0){
+			return Integer.toString(num);
+		}else{
+			return "SOLD OUT";
 		}
+
+	}
+
+	public void displaySubMenu (double balance){
+		System.out.println("(1) Take Money");
+		System.out.println("(2) Select Products");
+		System.out.println("(3) Complete Sale");
+		System.out.println("Current Customer Balance: $"+ balance);
+	}
+
 }
