@@ -15,9 +15,6 @@ public class Receipt {
         this.finalCart = finalCart;
     }
 
-    public Map<String, Integer> getFinalCart() {
-        return finalCart;
-    }
 
     public double getTotalCost(Map<String, CandyStoreItem> inventoryWProperties) {
         for(String sku : finalCart.keySet()){
