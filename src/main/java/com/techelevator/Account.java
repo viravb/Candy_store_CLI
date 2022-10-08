@@ -21,11 +21,9 @@ public class Account {
         } else{
             throw new InvalidNumberException("Amount entered is greater than the max balance or over 100");
         }
-
     }
 
     public void withdraw(double amount) throws InvalidNumberException {
-
 
         if(balance - amount>0) {
             balance -= amount;
@@ -38,7 +36,5 @@ public class Account {
     public double getBalance() {
         return balance;
     }
-
-
 
 }
