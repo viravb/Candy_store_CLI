@@ -67,7 +67,7 @@ public class Menu {
 		System.out.println("(1) Take Money");
 		System.out.println("(2) Select Products");
 		System.out.println("(3) Complete Sale");
-		System.out.println("Current Customer Balance: $"+ balance);
+		System.out.printf("Current Customer Balance: $%-4.2f\n", balance);
 	}
 
 	public void displayDesiredAmountToDeposit(){
@@ -107,19 +107,37 @@ public class Menu {
 	}
 
 	public void displayReceipt(Cart finalCart, Map<String,CandyStoreItem> inventoryWProperties, double totalCost, double totalChange, Change change){
+		System.out.println("QTY    ITEM NAME          PRODUCT TYPE          PER   TOTAL ");
 		for(String sku: finalCart.getCurrentCart().keySet()){
 			double lineItemTotal = (inventoryWProperties.get(sku).getPrice() * finalCart.getCurrentCart().get(sku));
-			System.out.println(finalCart.getCurrentCart().get(sku) + inventoryWProperties.get(sku).getName() + inventoryWProperties.get(sku).getPrice() + lineItemTotal);
+			System.out.printf("%-4d%-18s%-25s $%5.2f $%5.2f\n", finalCart.getCurrentCart().get(sku),
+					inventoryWProperties.get(sku).getName() ,inventoryWProperties.get(sku).getProductType() ,
+					inventoryWProperties.get(sku).getPrice() ,lineItemTotal);
 		}
-		System.out.println("Total: $"+ totalCost+ "\n");
-		System.out.println("Change: $" + totalChange);
-		System.out.print("("+ change.getTwenties()+ ")" + "Twenties, ");
-		System.out.print("("+ change.getTens()+ ")" + "Tens, ");
-		System.out.print("("+ change.getFives()+ ")" + "Fives, ");
-		System.out.print("("+ change.getOnes()+ ")" + "Ones, ");
-		System.out.print("("+ change.getQuarters()+ ")" + "Quarters, ");
+		System.out.println("\nTotal: $"+ totalCost+ "\n");
+		System.out.printf("Change: $%5.2f\n", totalChange);
+		if(change.getTwenties() > 0) {
+			System.out.print("(" + change.getTwenties() + ")" + "Twenties, ");
+		}
+		if( change.getTens() >0 ) {
+			System.out.print("(" + change.getTens() + ")" + "Tens, ");
+		}
+		if(change.getFives() > 0) {
+			System.out.print("(" + change.getFives() + ")" + "Fives, ");
+		}
+		if(change.getOnes() > 0 ) {
+			System.out.print("(" + change.getOnes() + ")" + "Ones, ");
+		}
+		if( change.getQuarters() > 0) {
+			System.out.print("(" + change.getQuarters() + ")" + "Quarters, ");
+		}
+		if(change.getDimes() > 0){
 		System.out.print("("+ change.getDimes()+ ")" + "Dimes, ");
-		System.out.print("("+ change.getNickels()+ ")" + "nickels");
+		}
+		if (change.getNickels() > 0) {
+			System.out.print("(" + change.getNickels() + ")" + "nickels");
+		}
+		System.out.println(" ");
 
 	}
 
