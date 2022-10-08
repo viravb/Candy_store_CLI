@@ -1,4 +1,4 @@
-# Module 1 Capstone - Candy Store Cash Register
+  # Module 1 Capstone - Candy Store Cash Register
 
 You’ve been asked to develop a cash register application for the Silver Shamrock Candy Company.  This application will be used by Silver Shamrock Sales Representatives when making sales to corporate customers. It will keep track of inventory, sales, and money received or returned.
 
