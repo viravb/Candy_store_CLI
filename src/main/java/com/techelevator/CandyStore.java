@@ -5,9 +5,9 @@ import com.techelevator.exceptions.InvalidSkuSelectedException;
 import com.techelevator.filereader.LogFileWriter;
 import com.techelevator.items.CandyStoreItem;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.Map;
+import java.util.Scanner;
 
 /*
     This class should encapsulate all the functionality of the Candy Store application, meaning it should
@@ -108,5 +108,39 @@ public class CandyStore {
         cart = new Cart();
         receipt = new Receipt();
         change = new Change();
+    }
+
+    public void totalSystemReport(){
+        String inputFileName = "TotalSales.rpt";
+        File inputFile = new File(inputFileName);
+
+        try(Scanner fileScanner = new Scanner(inputFile);
+        ){
+            while(fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] words = line.split("\\|");
+                String skuFromFile = words[0];
+                int qtyFromFile = Integer.parseInt(words[2]);
+                cart.addToCart(skuFromFile,qtyFromFile);
+            }
+
+        }catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
+
+        try(PrintWriter printWriter = new PrintWriter(inputFile);
+            BufferedWriter bufferedWriter = new BufferedWriter(printWriter)) {
+
+            for(String sku: cart.getCurrentCart().keySet()){
+                bufferedWriter.write(sku + '|' + inventoryWithProperties.get(sku).getName() + "|" + cart.getCurrentCart().get(sku)
+                        + "|$" + (inventoryWithProperties.get(sku).getPrice()*cart.getCurrentCart().get(sku))+"\n");
+            }
+        } catch (FileNotFoundException e){
+            System.out.println("File not found");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

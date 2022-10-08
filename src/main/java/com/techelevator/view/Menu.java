@@ -114,7 +114,7 @@ public class Menu {
 					inventoryWProperties.get(sku).getName() ,inventoryWProperties.get(sku).getProductType() ,
 					inventoryWProperties.get(sku).getPrice() ,lineItemTotal);
 		}
-		System.out.printf("\nTotal: $%5.2\n",totalCost);
+		System.out.printf("\nTotal: $%5.2f\n",totalCost);
 		System.out.printf("Change: $%5.2f\n", totalChange);
 		if(change.getTwenties() > 0) {
 			System.out.print("(" + change.getTwenties() + ")" + "Twenties, ");

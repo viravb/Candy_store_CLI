@@ -105,6 +105,7 @@ public class ApplicationCLI {
 				candyStore.makeChange();
 				menu.displayReceipt(candyStore.getCart(), candyStore.getInventoryWithProperties(),
 						candyStore.getTotalCost(), candyStore.getBalance(), candyStore.getChangeObject());
+				candyStore.totalSystemReport();
 				candyStore.reset();
 				break;
 			} else {
