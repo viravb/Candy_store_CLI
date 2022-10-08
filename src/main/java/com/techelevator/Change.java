@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import java.util.Objects;
+
 public class Change {
 
     private int twenties = 0;
@@ -9,6 +11,22 @@ public class Change {
     private int quarters =0;
     private int dimes = 0;
     private int nickels = 0;
+
+    public Change(){
+
+    }
+
+    // for testing
+    public Change(int twenties, int tens, int fives, int ones, int quarters,
+                 int dimes,int nickels){
+        this.twenties = twenties;
+        this.tens = tens;
+        this.fives = fives;
+        this.ones = ones;
+        this.quarters = quarters;
+        this.dimes = dimes;
+        this.nickels = nickels;
+    }
 
     public void determineChange(double totalChange){
         while(totalChange>=20){
@@ -41,6 +59,19 @@ public class Change {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Change change = (Change) o;
+        return twenties == change.twenties && tens == change.tens && fives == change.fives && ones == change.ones && quarters == change.quarters && dimes == change.dimes && nickels == change.nickels;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(twenties, tens, fives, ones, quarters, dimes, nickels);
+    }
+
     public int getTwenties() {
         return twenties;
     }
@@ -68,4 +99,6 @@ public class Change {
     public int getNickels() {
         return nickels;
     }
+
+
 }
